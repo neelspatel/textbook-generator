@@ -19,11 +19,6 @@ def error(string):
 	#red and bold: \033[31m\033[1m \033[0m\033[0m
 	return "\033[31m\033[1m" + string + "\033[0m\033[0m"
 
-if len(sys.argv) != 2:
-	print error("Correct usage is tf-idf <query>")
-	exit(1)
-
-
 def get_tokens(query, src="google"):
 	opener = urllib2.build_opener()
 	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
