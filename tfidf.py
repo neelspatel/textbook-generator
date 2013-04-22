@@ -11,6 +11,7 @@ from nltk.tokenize import word_tokenize
 import operator
 import math
 import string
+import google
 
 num_articles = 10
 
@@ -23,12 +24,22 @@ if len(sys.argv) != 2:
 	exit(1)
 
 
-def get_tokens(query):
+def get_tokens(query, src="google"):
 	opener = urllib2.build_opener()
 	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
-	infile = opener.open('http://en.wikipedia.org/wiki/' + query)
-	page = infile.read()
+	if src == "wikipedia":
+		infile = opener.open('http://en.wikipedia.org/wiki/' + query)
+		page = infile.read()
+	else:
+		page = ""
+		results = google.search(query, "com", "en", 1, 0, 1, 2.0)
+		for result in results:
+			print "on " + result
+			page = google.get_page(result)
+	
+	print page
+
 	raw = nltk.clean_html(page) 
 
 	#parses into tokens and saves as lwoercase
@@ -40,8 +51,8 @@ def get_tokens(query):
 
 	return tokens
 
-def get_tf_idf(query):
-	tokens = get_tokens(query)
+def get_tf_idf(query, src="google"):
+	tokens = get_tokens(query, src)
 
 	#converts into a dictionary
 	query_dictionary = Preprocess.list_to_dict(tokens,{})
