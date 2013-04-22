@@ -71,5 +71,3 @@ def get_tf_idf(query, src="google"):
 
 	return sorted_dictionary
 
-
-
