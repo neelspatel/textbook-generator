@@ -9,8 +9,8 @@ import nltk
 # get the top 10 results from tfidf output
 def get_top (keywords_tuple):
   top_words = []
-  for keyword in keywords_top[::10]:
-    top_words.append(top_words[0])
+  for keyword in keywords_tuple[:5]:
+    top_words.append(keyword[0])
   return top_words
 
 def unpackage (query):
@@ -20,7 +20,7 @@ def unpackage (query):
   keywords_dict = {}
   for keyword in keywords_top:
     all_sub = tl.get_tf_idf(keyword)
-    keywords_dic[keyword] = get_top(all_sub)
+    keywords_dict[keyword] = get_top(all_sub)
   return keywords_dict  
 
 # used to get links from google searches of 
@@ -28,9 +28,14 @@ def get_links (query):
   keywords_dict = unpackage(query)
   list_links = []
   for keyword in keywords_dict:
-   sub_words = keywords_dict[keyword]
-   for word in sub_words:
-    results = google.search(keyword + word + query, "com", "en", 1, 0, 1, 2.0)   
-    list_links.append(results[0])
+    sub_words = keywords_dict[keyword]
+    for word in sub_words:
+      print keyword +"/" + word + "/" + query
+      results = google.search(keyword + " " + word + " " + query, "com", "en", 1, 0, 1, 2.0)   
+      #list_links.append(((list(results)[0]), keyword +"/" + word + "/" + query))
+      list_links.append(list(results)[0])
 
+  return list_links
+
+print get_links("test")
 

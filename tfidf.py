@@ -24,16 +24,18 @@ def get_tokens(query, src="google"):
 	opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 
 	if src == "wikipedia":
+		print "Searching Wikipedia for " + query
 		infile = opener.open('http://en.wikipedia.org/wiki/' + query)
 		page = infile.read()
 	else:
+		print "Searching Google for " + query
 		page = ""
 		results = google.search(query, "com", "en", 1, 0, 1, 2.0)
 		for result in results:
 			print "on " + result
 			page = google.get_page(result)
 	
-	print page
+	#print page
 
 	raw = nltk.clean_html(page) 
 
