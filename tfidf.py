@@ -72,7 +72,4 @@ def get_tf_idf(query, src="google"):
 	return sorted_dictionary
 
 
-query = sys.argv[1]
-sorted_dictionary = get_tf_idf(query)
-print sorted_dictionary
 
