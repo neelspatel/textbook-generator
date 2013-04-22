@@ -4,7 +4,7 @@ import google
 import string
 import math
 import sys
-import ntlk
+import nltk
 
 # get the top 10 results from tfidf output
 def get_top (keywords_tuple):
