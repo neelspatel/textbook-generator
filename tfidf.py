@@ -12,6 +12,9 @@ import operator
 import math
 import string
 import google
+import pickle
+from itertools import islice
+
 
 num_articles = 10
 
@@ -48,14 +51,36 @@ def get_tokens(query, src="google"):
 
 	return tokens
 
+def load_idf():
+	#tries to load in the pickle file from dictionary
+	try:		
+		idf_values = pickle.load(open ("idf.p", "rb"))
+	except:
+		#otherwise, loads in the idf values from a file
+		print "Reading from file instead, and saving as pickle"
+		idf_values = {}
+		with open("idf.txt") as f:
+			for line in f:
+				(word, idf) = line.split()
+				print "Word is '" + word + "', and idf is '" + idf + "'."
+				idf_values[word] = idf
+		pickle.dump(idf_values, open("idf.p", "wb"))
+
+	return idf_values
+
 def get_tf_idf(query, src="google"):
 	tokens = get_tokens(query, src)
 
 	#converts into a dictionary
 	query_dictionary = Preprocess.list_to_dict(tokens,{})
 
+	#sprint query_dictionary
+
 	#creates a dictionary from a random wikipedia corpus
-	dictionary = Preprocess.get_corpus(num_articles)
+	#dictionary = Preprocess.get_corpus(num_articles)
+
+	#loads in the dictionary of existing tf_idf words
+	dictionary = load_idf()
 
 	tf_idf_dictionary = {}
 
@@ -63,13 +88,28 @@ def get_tf_idf(query, src="google"):
 	for key in query_dictionary.keys():
 		tf = query_dictionary[key]
 		if key in dictionary:
-			idf = math.log(num_articles / dictionary[key], 10)
+			idf = dictionary[key]
 		else:
-			idf = math.log(num_articles, 10)
-		tf_idf_dictionary[key] = (tf*idf)
+			idf = math.log(18,10)
+		tf_idf_dictionary[key] = (float(tf)*float(idf))
 
-	#sorts the dictionary based on the tfidf value, returning it
+	#print tf_idf_dictionary
+
+	#sorts the dictionary based on the tfidf value, returning it as a list
 	sorted_dictionary = sorted(tf_idf_dictionary.iteritems(), key=operator.itemgetter(1), reverse = True)
 
 	return sorted_dictionary
+
+#returns the top n words from a sorted list/dictionary
+def get_top_words(num, dictionary):	
+	#words = [pair[0] for pair in dictionary]
+
+	return dictionary[:num]
+
+#parses out the words that include punctuation from a sorted list/dictionary
+def parse(dictionary):
+	words = [pair[0] for pair in dictionary]
+	return filter(str.isalpha, words)
+
+#print parse(get_top_words(10, get_tf_idf("biology", "wikipedia")))
 
