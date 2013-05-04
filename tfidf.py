@@ -111,5 +111,5 @@ def parse(dictionary):
 	words = [pair[0] for pair in dictionary]
 	return filter(str.isalpha, words)
 
-#print parse(get_top_words(10, get_tf_idf("biology", "wikipedia")))
+print get_top_words(10, parse(get_tf_idf("biology", "wikipedia")))
 

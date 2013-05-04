@@ -38,3 +38,4 @@ def get_links (query):
   return list_links
 
 print get_links("gazelle")
+
