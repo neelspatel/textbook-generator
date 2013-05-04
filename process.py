@@ -45,8 +45,14 @@ def get_density (text, keywords):
     words = map(lambda x:x.lower(),words)
     freqs = collections.Counter(words)
     keyword_freqs = {}  
+    total = 0
     for keyword in keywords:
       keyword_freqs[keyword] = freqs[keyword]
+      total += freqs[keyword]
+
+    #normalizes everything by dividing by the total number of keywords
+    for keyword in keyword_freqs:
+      keyword_freqs[keyword] = keyword_freqs[keyword]/total
   except:
     print "Couldn't get the text."
     keyword_freqs = {}
