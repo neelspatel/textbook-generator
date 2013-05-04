@@ -3,6 +3,7 @@
 import tfidf
 import process
 import google
+import pickle
 
 #defines a term to search for
 term = "biology"
@@ -40,4 +41,4 @@ except:
 
 	pickle.dump(urls, open("urls.p", "wb"))
 
-print urls
+#now that we have the URLs, gets the keyword frequency for each
