@@ -41,7 +41,8 @@ except:
 			print "HTML request overload."
 			break
 
-	pickle.dump(urls, open("urls.p", "wb"))
+	pickle.dump(urls, open("dump/urls_Manifold.p", "wb"))
+
 
 try:
 	url_text_dictionary = pickle.load(open("dump/url_text_dictionary_Manifold.p", "rb"))
