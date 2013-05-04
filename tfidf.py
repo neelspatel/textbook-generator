@@ -14,6 +14,7 @@ import string
 import google
 import pickle
 from itertools import islice
+from stemming.porter2 import stem
 
 
 num_articles = 10
@@ -100,16 +101,37 @@ def get_tf_idf(query, src="google"):
 
 	return sorted_dictionary
 
-#returns the top n words from a sorted list/dictionary
+#returns the top n words from a sorted list
 def get_top_words(num, dictionary):	
 	#words = [pair[0] for pair in dictionary]
-
 	return dictionary[:num]
 
-#parses out the words that include punctuation from a sorted list/dictionary
+#removes any duplicates from a dictionary based on their stems
+def remove_duplicates(dictionary):
+	stems = []
+	uniques = []
+	for word in dictionary:
+		root = stem(word)
+		if not root in stems:
+			stems.append(root)
+			uniques.append(word)
+
+	return uniques
+
+def not_single(word):
+	return len(word)!=1
+
+#parses out the words that include punctuation from a sorted list
+#also parses our single letter words
 def parse(dictionary):
 	words = [pair[0] for pair in dictionary]
-	return filter(str.isalpha, words)
+	only_alpha =  filter(str.isalpha, words)
+	only_non_single = filter(not_single, only_alpha)
+	return only_non_single
 
-#print parse(get_top_words(10, get_tf_idf("biology", "wikipedia")))
+keywords = get_tf_idf("espn", "wikipedia")
+parsed = parse(keywords)
+uniques = remove_duplicates(parsed)
+top = get_top_words(10, uniques)
+print top
 
