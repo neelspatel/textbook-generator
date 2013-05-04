@@ -4,6 +4,8 @@ import tfidf
 import process
 import google
 import pickle
+import order
+import operator
 
 #defines a term to search for
 term = "biology"
@@ -45,10 +47,41 @@ try:
 	url_text_dictionary = pickle.load(open("url_text_dictionary.p", "rb"))
 except:	
 	url_text_dictionary = process.get_text_dictionary(urls)
-	pickle.dump(urls, open("url_text_dictionary.p", "wb"))
+	pickle.dump(url_text_dictionary, open("url_text_dictionary.p", "wb"))
 
 #print url_text_dictionary
 
 #now that we have the entire dictionary of url:text mappings, we can analyze instead
 wiki_text = process.get_text('http://en.wikipedia.org/wiki/' + term)
+
+#creates dictionaries for the summarability and order scores
+ordered_keywords = order.get_ordered_keywords(wiki_text, keywords)
+wiki_distribution = process.get_density(wiki_text, keywords)
+summarability = {}
+orderability = {}
+
+#calculates the summarability score in a dictionary
+for url, text in url_text_dictionary.iteritems():
+	current_distribution = process.get_density(text,keywords)
+	summarability[url] = order.get_difference(wiki_distribution, current_distribution)
+	orderability[url] = order.get_order(current_distribution, ordered_keywords)
+
+print summarability
+print "\n\n"
+print orderability
+
+#gets the urls sorted by summarability as a list of (url, score) tuples
+sorted_summarability = sorted(summarability.iteritems(), key=operator.itemgetter(1))
+f = open('sorted_summarability.txt','w')
+for (url, score) in sorted_summarability:
+	try:
+		f.write("  URL: " + url + "\n\n")
+		text = url_text_dictionary[url]
+		#print text
+		f.write(text)
+		f.write("\n\n")
+	except:
+		f.write("  URL: " + url + "\n\n")		
+		f.write("Couldn't get text.")
+		f.write("\n\n")
 

@@ -7,6 +7,7 @@ import sys
 import nltk
 from urllib import urlopen
 import urllib2
+import collections
 
 #returns the text from a given URL
 def get_text(url):
@@ -39,12 +40,16 @@ def get_combinations(input):
 #gets the density of each keyword (number of occurences over total number of words)
 #returns a dictionary of keyword as key, density as value
 def get_density (text, keywords):
-  words = text.split()  
-  words = map(lambda x:x.lower(),words)
-  freqs = Counter(words)
-  keyword_freqs = {}  
-  for keyword in keywords:
-    keyword_freqs[keyword] = freqs[keyword]
+  try:
+    words = text.split()  
+    words = map(lambda x:x.lower(),words)
+    freqs = collections.Counter(words)
+    keyword_freqs = {}  
+    for keyword in keywords:
+      keyword_freqs[keyword] = freqs[keyword]
+  except:
+    print "Couldn't get the text."
+    keyword_freqs = {}
 
   return keyword_freqs
 
