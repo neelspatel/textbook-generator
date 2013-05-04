@@ -1,3 +1,5 @@
+#This module is no longer used; it was only used during development and with prior stages of our application
+
 import Preprocess
 import tfidf as tl
 import google 
@@ -5,6 +7,22 @@ import string
 import math
 import sys
 import nltk
+
+#given a list of keywords, returns every possible pairing of two keywords
+def get_combinations (input):
+  final = []
+  for i in range(len(input)):
+    for j in range(len(input)-i-1):
+      final.append((input[i], input[i+j+1]))
+  return final
+
+#gets the density of each keyword (number of occurences over total number of words)
+#returns a dictionary of keyword as key, density as value
+def get_density (text, keywords):
+  length = len(text.split())
+  freqs = Counter(text.split())
+  final = {}  
+
 
 # get the top 10 results from tfidf output
 def get_top (keywords_tuple):
@@ -37,5 +55,9 @@ def get_links (query):
 
   return list_links
 
+<<<<<<< HEAD
 print get_links("gazelle")
+=======
+#print get_links("test")
+>>>>>>> e31bb754b49caa60bc3e1fe49d969f698aa06792
 
