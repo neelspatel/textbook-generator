@@ -41,3 +41,14 @@ except:
 
 	pickle.dump(urls, open("urls.p", "wb"))
 
+try:
+	url_text_dictionary = pickle.load(open("url_text_dictionary.p", "rb"))
+except:	
+	url_text_dictionary = process.get_text_dictionary(urls)
+	pickle.dump(urls, open("url_text_dictionary.p", "wb"))
+
+#print url_text_dictionary
+
+#now that we have the entire dictionary of url:text mappings, we can analyze instead
+wiki_text = process.get_text('http://en.wikipedia.org/wiki/' + term)
+

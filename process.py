@@ -5,6 +5,29 @@ import string
 import math
 import sys
 import nltk
+from urllib import urlopen
+import urllib2
+
+#returns the text from a given URL
+def get_text(url):
+  opener = urllib2.build_opener()
+  opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+  try:
+    print "Getting text from " + url
+    infile = opener.open(url)
+    page = infile.read()
+    raw = nltk.clean_html(page) 
+    return raw
+  except:
+    print "Sorry, could not read from " + url
+
+#takes in a list of URLs and returns a dictionary of url:text mappings
+def get_text_dictionary(url_list):
+  dictionary = {}
+  for url in url_list:
+    dictionary[url] = get_text(url)
+
+  return dictionary
 
 def get_combinations(input):
   final = []
