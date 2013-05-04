@@ -8,7 +8,7 @@ import order
 import operator
 
 #defines a term to search for
-term = "biology"
+term = "Manifold"
 
 #gets the list of all words with associated tf-idf scores
 words = tfidf.get_tf_idf(term, "wikipedia")
@@ -24,7 +24,7 @@ keywords = tfidf.get_top_words(10, cleaned)
 combinations = process.get_combinations(keywords)
 
 try:		
-	urls = pickle.load(open ("urls.p", "rb"))
+	urls = pickle.load(open ("dump/urls_Manifold.p", "rb"))
 except:
 	#otherwise, creates and searches for the keywords
 	print "Searching for each keyword set instead, and saving as pickle"
@@ -44,10 +44,10 @@ except:
 	pickle.dump(urls, open("urls.p", "wb"))
 
 try:
-	url_text_dictionary = pickle.load(open("url_text_dictionary.p", "rb"))
+	url_text_dictionary = pickle.load(open("dump/url_text_dictionary_Manifold.p", "rb"))
 except:	
 	url_text_dictionary = process.get_text_dictionary(urls)
-	pickle.dump(url_text_dictionary, open("url_text_dictionary.p", "wb"))
+	pickle.dump(url_text_dictionary, open("dump/url_text_dictionary_Manifold.p", "wb"))
 
 #print url_text_dictionary
 
@@ -72,7 +72,7 @@ print orderability
 
 #gets the urls sorted by summarability as a list of (url, score) tuples
 sorted_summarability = sorted(summarability.iteritems(), key=operator.itemgetter(1))
-f = open('sorted_summarability.txt','w')
+f = open('dump/sorted_summarability_Manifold.txt','w')
 for (url, score) in sorted_summarability:
 	try:
 		f.write("  URL: " + url + "\n\n")
