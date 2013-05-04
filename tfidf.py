@@ -129,7 +129,7 @@ def parse(dictionary):
 	only_non_single = filter(not_single, only_alpha)
 	return only_non_single
 
-keywords = get_tf_idf("espn", "wikipedia")
+keywords = get_tf_idf("biology", "wikipedia")
 parsed = parse(keywords)
 uniques = remove_duplicates(parsed)
 top = get_top_words(10, uniques)
