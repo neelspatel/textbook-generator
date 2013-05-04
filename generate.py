@@ -3,6 +3,7 @@
 import tfidf
 import process
 import google
+import pickle
 
 #defines a term to search for
 term = "biology"

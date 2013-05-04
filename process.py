@@ -6,6 +6,13 @@ import math
 import sys
 import nltk
 
+def get_combinations(input):
+  final = []
+  for i in range(len(input)):
+    for j in range(len(input) -i - 1):
+      final.append((input[i], input[i + j + 1]))
+  return final
+
 # get the top 10 results from tfidf output
 def get_top (keywords_tuple):
   top_words = []
@@ -37,5 +44,5 @@ def get_links (query):
 
   return list_links
 
-print get_links("gazelle")
+#print get_links("gazelle")
 
