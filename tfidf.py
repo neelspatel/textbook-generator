@@ -128,4 +128,3 @@ def parse(dictionary):
 	only_alpha =  filter(str.isalpha, words)
 	only_non_single = filter(not_single, only_alpha)
 	return only_non_single
-
