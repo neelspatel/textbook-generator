@@ -74,7 +74,7 @@ def get_tf_idf(query, src="google"):
 	#converts into a dictionary
 	query_dictionary = Preprocess.list_to_dict(tokens,{})
 
-	#sprint query_dictionary
+	#print query_dictionary
 
 	#creates a dictionary from a random wikipedia corpus
 	#dictionary = Preprocess.get_corpus(num_articles)
