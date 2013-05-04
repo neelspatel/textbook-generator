@@ -13,6 +13,18 @@ def get_combinations(input):
       final.append((input[i], input[i + j + 1]))
   return final
 
+#gets the density of each keyword (number of occurences over total number of words)
+#returns a dictionary of keyword as key, density as value
+def get_density (text, keywords):
+  words = text.split()  
+  words = map(lambda x:x.lower(),words)
+  freqs = Counter(words)
+  keyword_freqs = {}  
+  for keyword in keywords:
+    keyword_freqs[keyword] = freqs[keyword]
+
+  return keyword_freqs
+
 # get the top 10 results from tfidf output
 def get_top (keywords_tuple):
   top_words = []

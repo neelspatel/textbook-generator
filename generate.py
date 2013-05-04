@@ -41,4 +41,3 @@ except:
 
 	pickle.dump(urls, open("urls.p", "wb"))
 
-print urls
