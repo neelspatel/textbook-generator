@@ -33,9 +33,11 @@ except:
 		print "Searching for " + word1 + ", " + word2 + "."
 		try:
 			results = google.search(term + " " + word1 + " " + word2, "com", "en", 1, 0, 3, 2.0)  			
-			urls.append(results.next())
-			urls.append(results.next())
-			urls.append(results.next())
+			
+			for i in range(3):
+				next_result = results.next()
+				if not next_result in urls:
+					urls.append(next_result)
 
 		except:
 			print "HTML request overload."
