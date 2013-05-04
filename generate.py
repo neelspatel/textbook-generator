@@ -22,9 +22,14 @@ combinations = process.get_combinations(keywords)
 urls = []
 
 for (word1, word2) in combinations:	
-	results = google.search(term + " " + word1 + " " + word2, "com", "en", 1, 0, 3, 2.0)         
-    urls.append(list(results)[0])
-    urls.append(list(results)[1])
-    urls.append(list(results)[2])
+	print "Searching for " + word1 + ", " + word2 + "."
+	try:
+		results = google.search(term + " " + word1 + " " + word2, "com", "en", 1, 0, 3, 20.0)         
+		urls.append(list(results)[0])
+	except:
+		print "HTML request overload."
+		break
+	#urls.append(list(results)[1])
+	#urls.append(list(results)[2])
 
 print urls
