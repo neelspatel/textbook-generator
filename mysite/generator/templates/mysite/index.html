@@ -1,0 +1,78 @@
+<head>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cato">
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,300italic,700,900|Cabin:400,600,700" rel="stylesheet" type="text/css">
+</head>
+<body style="padding-top:50px; background-image: url(http://i.imgur.com/so1sKGk.png); font-family: 'Lato';">
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+		    <a class="brand" href="#">CS51 Final Project</a>
+		    <ul class="nav">			    			    	
+		    	<li class="active"><a href="#">Home</a></li>
+		    </ul>
+		</div>
+	</div>
+	<div class = "hero-unit" style = "padding: 20px; width: 80%; margin-left: auto; margin-right: auto; background-image: url(http://www.oderwald.nl/michiel/montblanc/groot/2005_07_28_IMG_1858panorama.jpg); color: rgb(200,200,200); text-shadow: white 0.05em 0.05em 0.05em;">
+		<div class = "row-fluid">
+			<div class = "span6">				
+				<h1 style = "text-align: center; font-family: 'Roboto', serif;">
+					Summalyze
+				</h1>				
+				<h3 style = "text-align: center; padding-top: 20px;">
+					Organizing Information to Aid Learning
+				</h3>
+			</div>
+			<div class = "span6" style = "padding-top: 20px;">
+				<div class = "hero-unit search" style = "padding: 10px; background-color: rgba(238,238,238,0.5);">
+					<h2 style = "text-align: center;">Take our project for a spin!</h2>
+					<form action="/generator/" method="get">         
+				        <input type="search" name="query" id="search-query" placeholder = "Try searching for 'Harvard', 'Manifold', 'Biology', or 'Communism'!" style = "width: 80%;" class = "input-large search-query"/>         
+				        <input type="submit" value="Submit" class = "btn btn-success">
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "row-fluid">
+		<div class = "span6">
+			<div class = "hero-unit" style = "padding: 20px; width: 80%; margin-left: auto; margin-right: auto; background-image: url(http://www.oderwald.nl/michiel/montblanc/groot/2005_07_28_IMG_1858panorama.jpg); color: rgb(200,200,200); text-shadow: white 0.05em 0.05em 0.05em;">
+				<h1>What is it?</h1>
+				<hr>
+				<p>
+					<b>Summalyze</b> is a new way to learn about topics. It's a search engine to return not just links, but <b>knowledge</b>.
+				</p>
+				</br>
+				<p>
+					When you search for <b>biology</b>, you'll get an <b>organized set of information</b> with all the information you need to learn about biology. The information is sorted in order of <b>complexity</b> and also <b>natural order of prerequisites</b>.
+				</p>
+				</br>
+				<p>
+					Even for more complex topics like <b>manifolds</b>, Summalyze returns a set of information in order from <b>the basics you need to know</b> to <b>in depth articles</b> on specific topics.
+				</p>
+			</div>
+		</div>
+		<div class = "span6">
+			<div class = "hero-unit" style = "padding: 20px; width: 80%; margin-left: auto; margin-right: auto; background-image: url(http://www.oderwald.nl/michiel/montblanc/groot/2005_07_28_IMG_1858panorama.jpg); color: rgb(200,200,200); text-shadow: white 0.05em 0.05em 0.05em;">
+				<h1>How does it work?</h1>
+				<hr>									
+				<ol>
+					<li>
+						<b>Calculate keywords.</b> We implemented tf-idf scores to calculate the important words for any given query. We then parse, process, and clean this <b>list of keywords</b>.
+					</li>
+					<li>
+						<b>Search for spanning combinations.</b> We find search results for spanning unique combinations of these keywords, and then get the <b>unique set of URLs</b> for these combinations.
+					</li>
+					<li>
+						<b>Process text from each URL.</b> Get the source HTML, clean any markup, tokenize into words, and calculate the frequency distribution of each word.
+					</li>
+					<li>
+						<b>Calculate complexity and natural prerequisite order.</b> Our algorithms calculate order based on various keyword frequency distributions.
+					</li>
+				</ol>
+			</div>
+		</div>		
+	</div>
+		
+</body>
