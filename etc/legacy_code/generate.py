@@ -6,9 +6,10 @@ import google
 import pickle
 import order
 import operator
+import sys
 
 #defines a term to search for
-term = "Biology"
+term = ""
 
 #gets the list of all words with associated tf-idf scores
 words = tfidf.get_tf_idf(term, "wikipedia")
@@ -19,6 +20,8 @@ cleaned = tfidf.remove_duplicates(cleaned)
 
 #gets the list of top words (keywords)
 keywords = tfidf.get_top_words(10, cleaned)
+print keywords
+sys.exit(0)
 
 #gets all combinations of the keywords; this is a list of tuples
 combinations = process.get_combinations(keywords)
