@@ -22,6 +22,8 @@ def iframe(request):
 def index(request):
 	if 'query' in request.GET:
 		term = request.GET['query']
+		#replaces spaces with underscores
+		term = term.replace(" ", "_")
 		print error("****THE TERM IS " + term)
 	else:
 		#defines a term to search for
